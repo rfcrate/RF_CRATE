@@ -1,0 +1,44 @@
+task: 'overall_performance'
+init_rand_seed: 0
+tqdm_disable: False
+tensorboard_folder: 'Runs/'
+
+batch_size: 64
+num_workers: 64
+num_epochs: 100
+
+model_name: 'lstm'
+model_input_shape: 'BCHW'  # BCHW, BLC, BTCHW, B2CNFT # B: batch size, C: channel, H: height, W: width, T: time length, N: number of (WiFi CSI) links, F: frequency bins
+
+
+######################################### widar3 dataset config example #########################################
+dataset_name: 'widar3'
+dataset_path: 'Open_Datasets/widar3'
+preload: True
+preprocess: False
+data_split: [0.7, 0.1, 0.2] # get the train, validattion, and test sets from the all_dataset ; 
+                           # If data_split is [], we get the train and validation sets from the train_dataset with ratio 0.8, 0.2, respectively. the test set is from the test_dataset
+format: 'polar' # 'polar', 'cartesian', or 'complex'
+time_length: 3000 # the length of the time series data. 
+
+
+all_dataset:
+  user_list: [1,]  # [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17] 
+  gesture_list: [0,1] # [0,6]
+  ges_from_same_folder: True  
+  room_list: [1,]  # [1,2,3]
+  select_rx: [1] # [1,2,3,4,5,6]
+
+train_dataset:
+  user_list: [1,2,3,4,5,6,7,8,9]  # the selected user list
+  gesture_list: [0,6]       # the selected gesture from the SORTED_GES_LIST in tha widar3.py dataset file
+  ges_from_same_folder: True  
+  room_list: [1,2,3]     # the selected room list: 1, 2, 3
+  select_rx: [1,2] # [1,2,3,4,5,6]
+
+test_dataset:
+  user_list: [10,11,12,13,14,15,16,17]  # the selected user list
+  gesture_list: [0,6]       #[start_index, end_index] the selected gesture from the SORTED_GES_LIST in tha widar3.py dataset file
+  ges_from_same_folder: True  
+  room_list: [1,2,3]     # the selected room list: 1, 2, 3
+  select_rx: [1,2] # [1,2,3,4,5,6]

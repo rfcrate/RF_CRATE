@@ -1,0 +1,44 @@
+task: 'overall_performance'
+init_rand_seed: 41
+tqdm_disable: False
+cuda_index: 0                      # the index of the cuda device
+tensorboard_folder: 'Runs/'        
+trained_model_folder: 'weights/'
+log_folder: 'logs/'       
+
+batch_size: 64
+num_workers: 64
+num_epochs: 100
+optimizer: 'Lion' # 'adamW', 'Lion' (https://github.com/lucidrains/lion-pytorch)
+lr: 0.0004    # adamW: 0.001, Lion: 0.0004 (3-10x smaller than that for AdamW)
+weight_decay: 0.01 # adamW: 0.004, Lion: 0.01  (Lion is 3-10x larger than that for AdamW)
+loss_function: 'label_smoothing' # 'cross_entropy', 'mse', label_smoothing
+resume_training: False # OR put the weights name for resume training: 'name_of_the_weights.pth'
+
+model_name: 'resnet18'
+model_input_shape: 'BCHW'  # BCHW, BLC, BTCHW, B2CNFT # B: batch size, C: channel, H: height, W: width, T: time length, N: number of (WiFi CSI) links, F: frequency bins
+
+
+dataset_name: 'widar_gait'
+dataset_path: 'Open_Datasets/WidarGait'
+preload: True
+preprocess: True
+data_split: [0.7, 0.1, 0.2] # get the train, validattion, and test sets from the all_dataset ; 
+                           # If data_split is [], we get the train and validation sets from the train_dataset with ratio 0.8, 0.2, respectively. the test set is from the test_dataset
+format: 'complex' # 'polar', 'cartesian', 'complex', 'dfs'
+time_length: 3200 # the length of the time series data.
+
+all_dataset:
+  user_list: [1,]  # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] 
+  track_list: [1] # [1, 2, 3, 4, 5, 6]
+  select_rx: [1] # [1, 2, 3, 4, 5, 6]
+
+train_dataset:
+  user_list: [1,2,3,4,5,6,7,8,9]  # the selected user list
+  track_list: [1,2,3,4,5,6]       # the selected track list
+  select_rx: [1,2] # [1, 2, 3, 4, 5, 6]
+
+test_dataset:
+  user_list: [10,11]  # the selected user list
+  track_list: [1,2,3,4,5,6]       # the selected track list
+  select_rx: [1,2] # [1, 2, 3, 4, 5, 6]

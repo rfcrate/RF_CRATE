@@ -1,0 +1,114 @@
+task: 'overall_performance'
+init_rand_seed: 41
+tqdm_disable: False
+cuda_index: 0                      # the index of the cuda device
+tensorboard_folder: 'Runs/'        
+trained_model_folder: 'weights/'
+log_folder: 'logs/'       
+
+batch_size: 64
+num_workers: 64
+num_epochs: 100
+
+####################################################### model configurations #######################################################
+# # resnet18, resnet34, resnet50, resnet101, resnet152, 
+# # densenet121, densenet161, densenet169, densenet201,
+# # swin_t, swin_s, swin_b, swin_V2_t, swin_V2_s, swin_V2_b
+# model_name: 'swin_v2_t'
+# model_input_shape: 'BCHW'  # BCHW, BLC, BTCHW, B2CNFT # B: batch size, C: channel, H: height, W: width, T: time length, N: number of (WiFi CSI) links, F: frequency bins
+# num_classes: 10 # the number of classes in the dataset
+# in_channels: 1 # the number of input channels
+
+# # crate_tiny, crate_small, crate_base, crate_large
+# model_name: 'crate_large'
+# model_input_shape: 'BCHW'  # BCHW, BLC, BTCHW, B2CNFT # B: batch size, C: channel, H: height, W: width, T: time length, N: number of (WiFi CSI) links, F: frequency bins
+# num_classes: 10 # the number of classes in the dataset
+# in_channels: 1 # the number of input channels
+# image_size: [1000, 30] # the size of the input image_like data: (H,W)
+# patch_size: [1, 30] # since the patch processing is: 'b c (h p1) (w p2) -> b (h w) (p1 p2 c)'
+#                      # and the 'H' of the reshaped input data is the time dimension,
+#                      # to keep the time dimension, the patch_size should be (1, W) for the image_size (224, 224)
+
+# # units_standard
+# model_name: 'units_standard'
+# model_input_shape: 'BLC'  # BCHW, BLC, BTCHW, B2CNFT # B: batch size, C: channel, H: height, W: width, T: time length, N: number of (WiFi CSI) links, F: frequency bins
+# num_classes: 10 # the number of classes in the dataset
+# in_channels: 1 # the number of input channels
+
+# # stfnet_standard
+# model_name: 'stfnet_standard'
+# model_input_shape: 'BLC' # BCHW, BLC, BTCHW, B2CNFT # B: batch size, C: channel, H: height, W: width, T: time length, N: number of (WiFi CSI) links, F: frequency bins
+# num_classes: 10 # the number of classes in the dataset
+# in_channels: 1 # the number of input channels; !!!!!! in_channels % sensor_num == 0
+# sensor_num: 1 # the number of sensors, e.g., for wifi csi, sensor_num = num_rx_antennas * num_tx_antennas
+# feature_dim: 128 # the dim of the hidden feature; # !!!!!! feature_dim % sensor_num == 0
+# act_domain: 'freq' # 'freq': WiFi csi; the domain of the activation function, 'freq' or 'time'
+
+# # rf_net
+# model_name: 'rf_net'
+# model_input_shape: 'BLC' # BCHW, BLC, BTCHW, B2CNFT # B: batch size, C: channel, H: height, W: width, T: time length, N: number of (WiFi CSI) links, F: frequency bins
+# num_classes: 10 # the number of classes in the dataset
+# in_channels: 1 # the number of input channels
+
+# # slnet_standard
+# model_name: 'slnet_standard'
+# model_input_shape: 'B2CNFT' # BCHW, BLC, BTCHW, B2CNFT # B: batch size, C: channel, H: height, W: width, T: time length, N: number of (WiFi CSI) links, F: frequency bins
+# num_classes: 10 # the number of classes in the dataset
+# in_channels: 1 # the number of input channels == 'C' in the model_input_shape
+# sensor_num: 1 # the number of sensors == 'N' in the model_input_shape
+# freq_bins: 121 # the number of frequency bins == 'F' in the model_input_shape
+# time_steps: 201 # the number of time steps == 'T' in the model_input_shape
+
+# # widar3_standard
+# model_name: 'widar3_standard'
+# model_input_shape: 'BTCHW' # BCHW, BLC, BTCHW, B2CNFT # B: batch size, C: channel, H: height, W: width, T: time length, N: number of (WiFi CSI) links, F: frequency bins
+# num_classes: 10 # the number of classes in the dataset
+# in_channels: 1 # the number of input channels == 'C' in the model_input_shape
+# time_step: 401 # the number of time steps == 'T' in the model_input_shape
+# hight: 224 # the height of the input image_like data == 'H' in the model_input_shape
+# width: 224 # the width of the input image_like data == 'W' in the model_input_shape
+
+# # laxcat_standard
+# model_name: 'laxcat_standard'
+# model_input_shape: 'BLC' # BCHW, BLC, BTCHW, B2CNFT # B: batch size, C: channel, H: height, W: width, T: time length, N: number of (WiFi CSI) links, F: frequency bins
+# num_classes: 10 # the number of classes in the dataset
+# in_channels: 1 # the number of input channels
+
+# rf_crate_tiny, rf_crate_small, rf_crate_base, rf_crate_large
+model_name: 'rf_crate_tiny'
+model_input_shape: 'BCHW'  # BCHW, BLC, BTCHW, B2CNFT # B: batch size, C: channel, H: height, W: width, T: time length, N: number of (WiFi CSI) links, F: frequency bins
+num_classes: 10 # the number of classes in the dataset
+in_channels: 1 # the number of input channels == 'C' in the model_input_shape
+image_size: [1000, 30] # the size of the input image_like data: (H,W)
+patch_size: [1, 30] # since the patch processing is: 'b c (h p1) (w p2) -> b (h w) (p1 p2 c)'
+                     # and the 'H' of the reshaped input data is the time dimension,
+                     # to keep the time dimension, the patch_size should be (1, W) for the image_size (224, 224)
+feedforward: 'type2'  # 'type1': metric tensor-induced skip-connection feedforward, 'type2': original CRATE-like feedforward
+relu_type: 'cardioid'  # 'crelu', 'zrelu', 'modrelu', 'cardioid'
+
+
+####################################################### dataset configurations #######################################################
+
+dataset_name: 'widar_gait'
+dataset_path: 'Open_Datasets/WidarGait'
+preload: True
+preprocess: True
+data_split: [0.7, 0.1, 0.2] # get the train, validattion, and test sets from the all_dataset ; 
+                           # If data_split is [], we get the train and validation sets from the train_dataset with ratio 0.8, 0.2, respectively. the test set is from the test_dataset
+format: 'complex' # 'polar', 'cartesian', 'complex', 'dfs'
+time_length: 4000 # the length of the time series data.
+
+all_dataset:
+  user_list: [1,]  # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] 
+  track_list: [1,2] # [1, 2, 3, 4, 5, 6]
+  select_rx: [1] # [1, 2, 3, 4, 5, 6]
+
+train_dataset:
+  user_list: [1,2,3,4,5,6,7,8,9]  # the selected user list
+  track_list: [1,2,3,4,5,6]       # the selected track list
+  select_rx: [1,2] # [1, 2, 3, 4, 5, 6]
+
+test_dataset:
+  user_list: [10,11]  # the selected user list
+  track_list: [1,2,3,4,5,6]       # the selected track list
+  select_rx: [1,2] # [1, 2, 3, 4, 5, 6]
