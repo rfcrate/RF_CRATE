@@ -1,0 +1,40 @@
+task: 'OctonetMini_Units'
+init_rand_seed: 41
+tqdm_disable: True
+cuda_index: 0                      # the index of the cuda device
+tensorboard_folder: 'runs/OctonetMini/'        
+trained_model_folder: 'weights/OctonetMini/'
+model_save_enable: False
+log_folder: 'logs/OctonetMini/'  
+log_enable: True         
+
+num_epochs: 200
+early_stop: 10 # the number of epochs to stop the training if the validation loss does not decrease
+batch_size: 32
+num_workers: 8
+optimizer: 'AdamW' # 'AdamW', 'Lion' (https://github.com/lucidrains/lion-pytorch)
+lr: 0.001    # adamW: 0.001, Lion: 0.0004 (3-10x smaller than that for AdamW)
+weight_decay: 0.004 # adamW: 0.004, Lion: 0.01  (Lion is 3-10x larger than that for AdamW)
+criterion: 'bone_loss' # 'cross_entropy', 'mse', label_smoothing
+resume_training: False # OR put the weirf_crate_smalghts name for resume training: 'name_of_the_weights.pth'
+metric: 'mpjpe_3d' # 'accuracy', 'f1_score', 'precision', 'recall', 'mpjpe_2d', 'mpjpe_3d'
+
+model_name: 'units_standard'
+model_input_shape: 'BLC'  # BCHW, BLC, BTCHW, B2CNFT # B: batch size, C: channel, H: height, W: width, T: time length, N: number of (WiFi CSI) links, F: frequency bins
+num_classes: 60 # the number of classes in the dataset
+in_channels: 912 # the number of input channels == 'C' in the model_input_shape
+
+dataset_name: 'OctoNetMini'
+dataset_path: 'Open_Datasets/OctoNetMini/Processed_data/'
+task: 'pose_estimation'
+preload: False
+preprocess: True
+data_split: [0.7, 0.1, 0.2] # get the train, validattion, and test sets from the all_dataset ; 
+                           # If data_split is [], we get the train and validation sets from the train_dataset with ratio 0.8, 0.2, respectively. the test set is from the test_dataset
+format: 'polar' # 'polar', 'cartesian', 'complex', 'dfs'
+time_length: 1200 # the length of the time series data.
+pose_time_length: 400 # cut the time_length into 3 parts: 400, 400, 400 
+
+all_dataset:
+  user_list: [1,2,3,4,5,6,7,8,9,10]  # the selected user list:: [1,2,3,4,5,6,7,8,9,10]
+  activity_list: [0,32]  # the selected activity: tuple (start activity_id, end activity_id) :: 32 activities in total

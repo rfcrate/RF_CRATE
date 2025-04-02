@@ -1,0 +1,57 @@
+task: 'RPI_rfcrate_small'
+init_rand_seed: 41
+tqdm_disable: True
+cuda_index: 0                      # the index of the cuda device
+tensorboard_folder: 'runs/RPI/'        
+trained_model_folder: 'weights/RPI/'
+model_save_enable: True
+log_folder: 'logs/RPI/'  
+log_enable: True     
+
+num_epochs: 100
+early_stop: 10 # the number of epochs to stop the training if the validation loss does not decrease
+batch_size: 32
+num_workers: 8
+optimizer: 'AdamW' # 'AdamW', 'Lion' (https://github.com/lucidrains/lion-pytorch)
+lr: 0.001    # adamW: 0.001, Lion: 0.0004 (3-10x smaller than that for AdamW)
+weight_decay: 0.004 # adamW: 0.004, Lion: 0.01  (Lion is 3-10x larger than that for AdamW)
+momentum: 0.5
+criterion: 'mse' # 'cross_entropy', 'mse', label_smoothing
+resume_training: False # OR put the weirf_crate_smalghts name for resume training: 'name_of_the_weights.pth'
+metric: 'mae' # 'accuracy', 'f1_score', 'precision', 'recall', 'mpjpe_2d', 'mpjpe_3d', mae
+
+model_name: 'rf_crate_small' # rf_crate_tiny, rf_crate_small, rf_crate_base, rf_crate_large
+model_input_shape: 'BCHW-C'  # BCHW, BLC, BTCHW, B2CNFT # B: batch size, C: channel, H: height, W: width, T: time length, N: number of (WiFi CSI) links, F: frequency bins
+num_classes: 1 # the number of classes in the dataset
+in_channels: 1 # the number of input channels == 'C' in the model_input_shape
+image_size: [1980, 114] # the size of the input image_like data: (H,W)
+patch_size: [60, 114] # since the patch processing is: 'b c (h p1) (w p2) -> b (h w) (p1 p2 c)'
+feedforward: 'type1'  # 'type1': metric tensor-induced skip-connection feedforward, 'type2': original CRATE-like feedforward
+relu_type: 'crelu'  # 'crelu', 'zrelu', 'modrelu', 'cardioid'
+patch_embedding_method: 'conv_patch' # 'linear_patch', 'conv_patch', 'soft_conv_patch'
+mlp_head_type: 'crate_version' # 'crate_version', 'vit_version'
+output_type: 'magnitude' # 'magnitude', 'real_imag', 'real'
+ssr: True # the subspace regularization (SSR) for the model
+ssr_lambda: 5. # the wight for the SSR loss
+ppe: None
+
+dataset_name: 'RPI'
+csi_dir: 'Open_Datasets/RPI-AX200/Processed_data/csi'
+resp_rate_path: 'Open_Datasets/RPI-AX200/Processed_data/respiration_rate.pkl'
+seg_time_length: 10  # 10 seconds per segment
+seg_time_step: 2     # 2 seconds step between segments
+csi_sampling_rate: 198  # Hz
+resp_avg_window: 2  # Use last 2 seconds for respiration rate averaging
+format: 'complex' # 'polar', 'cartesian', 'complex', 'dfs'
+
+data_split: [] # get the train, validattion, and test sets from the all_dataset ; 
+                           # If data_split is [], we get the train and validation sets from the train_dataset with ratio 0.8, 0.2, respectively. the test set is from the test_dataset
+
+# all_dataset:
+#   selected_chunk_index: [1,2,3,4,5,6,7,8,9,10,11]  
+
+train_dataset:
+  selected_chunk_index: [1,2,3,4,5,6,7,8]  
+
+test_dataset:
+  selected_chunk_index: [9,10]

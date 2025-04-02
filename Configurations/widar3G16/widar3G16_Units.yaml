@@ -1,0 +1,41 @@
+task: 'widar3G16_Units'
+init_rand_seed: 41
+tqdm_disable: True
+tensorboard_folder: 'runs/widar3G16/'        
+trained_model_folder: 'weights/widar3G16/'
+model_save_enable: False
+log_folder: 'logs/widar3G16/'
+log_enable: True     
+
+num_epochs: 55
+early_stop: 15 # the number of epochs to stop the training if the validation loss does not decrease
+batch_size: 32
+num_workers: 16
+optimizer: 'AdamW' # 'AdamW', 'Lion' (https://github.com/lucidrains/lion-pytorch)
+lr: 0.001    # adamW: 0.001, Lion: 0.0004 (3-10x smaller than that for AdamW)
+weight_decay: 0.004 # adamW: 0.004, Lion: 0.01  (Lion is 3-10x larger than that for AdamW)
+max_norm: None # the maximum norm for the gradient clipping
+criterion: 'label_smoothing' # 'cross_entropy', 'mse', label_smoothing
+resume_training: False # OR put the weirf_crate_smalghts name for resume training: 'name_of_the_weights.pth'
+metric: 'accuracy' # 'accuracy', 'f1_score', 'precision', 'recall', 'mpjpe_2d', 'mpjpe_3d'
+
+model_name: 'units_standard'
+model_input_shape: 'BLC'  # BCHW, BLC, BTCHW, B2CNFT # B: batch size, C: channel, H: height, W: width, T: time length, N: number of (WiFi CSI) links, F: frequency bins
+num_classes: 16 # the number of classes in the dataset
+in_channels: 180 # the number of input channels == 'C' in the model_input_shape
+
+dataset_name: 'widar3'
+dataset_path: 'Open_Datasets/widar3'
+preload: False
+preprocess: True
+concat_rx: False
+z_score: False
+format: 'polar' # 'polar', 'cartesian', 'complex', 'dfs'
+time_length: 2560 # the length of the time series data.
+data_split: [0.7, 0.1, 0.2]
+all_dataset:
+  user_list: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]  # [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]  There is no user# 7,8,9
+  gesture_list: [6,22] # The numbers from 0-9; [6,22]
+  ges_from_same_folder: False  
+  room_list: [1,2,3]  # [1,2,3]
+  select_rx: [1,2,3,4,5,6] # [1,2,3,4,5,6]

@@ -1,0 +1,52 @@
+task: 'widarGait_slnet'
+init_rand_seed: 41
+tqdm_disable: True
+cuda_index: 0                      # the index of the cuda device
+tensorboard_folder: 'runs/widarGait/'        
+trained_model_folder: 'weights/widarGait/'
+model_save_enable: False
+log_folder: 'logs/widarGait/'  
+log_enable: True          
+
+num_epochs: 100
+early_stop: 10 # the number of epochs to stop the training if the validation loss does not decrease
+batch_size: 32
+num_workers: 8
+optimizer: 'AdamW' # 'AdamW', 'Lion' (https://github.com/lucidrains/lion-pytorch)
+lr: 0.001    # adamW: 0.001, Lion: 0.0004 (3-10x smaller than that for AdamW)
+weight_decay: 0.004 # adamW: 0.004, Lion: 0.01  (Lion is 3-10x larger than that for AdamW)
+criterion: 'label_smoothing' # 'cross_entropy', 'mse', label_smoothing
+resume_training: False # OR put the weights name for resume training: 'name_of_the_weights.pth'
+metric: 'accuracy' # 'accuracy', 'f1_score', 'precision', 'recall', 'mpjpe_2d', 'mpjpe_3d'
+
+model_name: 'slnet_standard'
+model_input_shape: 'B2CNFT'  # BCHW, BLC, BTCHW, B2CNFT # B: batch size, C: channel, H: height, W: width, T: time length, N: number of (WiFi CSI) links, F: frequency bins
+num_classes: 11 # the number of classes in the dataset
+in_channels: 90 # the number of input channels == 'C' in the model_input_shape * sensor_num
+sensor_num: 3 # the number of sensors == 'N' in the model_input_shape
+freq_bins: 121 # the number of frequency bins == 'F' in the model_input_shape
+time_steps: 300 # the number of time steps == 'T' in the model_input_shape
+
+dataset_name: 'widar_gait'
+dataset_path: 'Open_Datasets/WidarGait'
+preload: False
+preprocess: True
+data_split: [0.6, 0.1, 0.3] # get the train, validattion, and test sets from the all_dataset ; 
+                           # If data_split is [], we get the train and validation sets from the train_dataset with ratio 0.8, 0.2, respectively. the test set is from the test_dataset
+format: 'dense_dfs_amp' # 'polar', 'cartesian', 'complex', 'dfs'
+time_length: 3000 # the length of the time series data.
+
+all_dataset:
+  user_list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]   # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] 
+  track_list: [1, 2, 3, 4, 5, 6] # [1, 2, 3, 4, 5, 6]
+  select_rx: [1, 2, 3, 4, 5, 6] # [1, 2, 3, 4, 5, 6]
+
+# train_dataset:
+#   user_list: [1,2,3,4,5,6,7,8,9]  # the selected user list
+#   track_list: [1,2,3,4,5,6]       # the selected track list
+#   select_rx: [1,2] # [1, 2, 3, 4, 5, 6]
+
+# test_dataset:
+#   user_list: [10,11]  # the selected user list
+#   track_list: [1,2,3,4,5,6]       # the selected track list
+#   select_rx: [1,2] # [1, 2, 3, 4, 5, 6]

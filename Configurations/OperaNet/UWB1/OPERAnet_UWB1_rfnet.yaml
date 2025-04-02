@@ -1,0 +1,49 @@
+task: 'OPERAnet_UWB1_rfnet'
+init_rand_seed: 41
+tqdm_disable: True
+cuda_index: 0                      # the index of the cuda device
+tensorboard_folder: 'runs/OperaNet/UWB1/'        
+trained_model_folder: 'weights/OperaNet/UWB1/'
+model_save_enable: False
+log_folder: 'logs/OperaNet/UWB1/'  
+log_enable: True       
+
+early_stop: 10 # the number of epochs to stop the training if the validation loss does not decrease
+batch_size: 32
+num_workers: 40
+num_epochs: 100
+optimizer: 'AdamW' # 'AdamW', 'Lion' (https://github.com/lucidrains/lion-pytorch)
+lr: 0.0001    # adamW: 0.001, Lion: 0.0004 (3-10x smaller than that for AdamW)
+weight_decay: 0.0004 # adamW: 0.004, Lion: 0.01  (Lion is 3-10x larger than that for AdamW)
+momentum: 0.5
+# lr: 0.0001    # adamW: 0.001, Lion: 0.0004 (3-10x smaller than that for AdamW)
+# weight_decay: 0.0002 # adamW: 0.004, Lion: 0.01  (Lion is 3-10x larger than that for AdamW)
+# momentum: 0.4
+criterion: 'label_smoothing' # 'cross_entropy', 'mse', label_smoothing
+resume_training: False # OR put the weights name for resume training: 'name_of_the_weights.pth'
+metric: 'accuracy' # 'accuracy', 'f1_score', 'precision', 'recall', 'mpjpe_2d', 'mpjpe_3d'
+
+model_name: 'rf_net'
+model_input_shape: 'BLC'  # BCHW, BLC, BTCHW, B2CNFT # B: batch size, C: channel, H: height, W: width, T: time length, N: number of (WiFi CSI) links, F: frequency bins
+num_classes: 7 # the number of classes in the dataset
+in_channels: 70 # the number of input channels == 'C' in the model_input_shape
+
+dataset_name: 'OPERAnet_UWB'
+dataset_path: 'Open_Datasets/OPERAnet'
+uwb_system_index: 1 # 1 or 2; we have two UWB systems (1: Decawave's EVK1000 modules; 2: Decawave's MDEK1001 modules) in OPERAnet dataset
+uwb_data_type: 'CIR' # CIR or CFR
+data_split: [0.7, 0.1, 0.2] # get the train, validattion, and test sets from the all_dataset ; 
+format: 'polar' # 'polar', 'cartesian', 'complex', 'dfs'
+time_length: 1200 # For system 1, the time length is 1200; for system 2, the time length is 600
+
+all_dataset:
+  selected_user_id: [1,2,3,4,5,6,7]  # [1,2,3,4,5,6,7]
+  selected_room_no: [1,2]  # [1,2]
+
+# train_dataset:
+#   selected_user_id: [1,2,3,4]  # [1,2,3,4,5,6,7]
+#   selected_room_no: [1,2]  # [1,2]  
+
+# test_dataset:
+#   selected_user_id: [5,6,7]  # [1,2,3,4,5,6,7]
+#   selected_room_no: [1,2]  # [1,2]  

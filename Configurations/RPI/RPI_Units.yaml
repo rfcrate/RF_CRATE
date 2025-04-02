@@ -1,0 +1,46 @@
+task: 'RPI_Units'
+init_rand_seed: 41
+tqdm_disable: True
+cuda_index: 0                      # the index of the cuda device
+tensorboard_folder: 'runs/RPI/'        
+trained_model_folder: 'weights/RPI/'
+model_save_enable: False
+log_folder: 'logs/RPI/'  
+log_enable: True         
+
+num_epochs: 100
+early_stop: 10 # the number of epochs to stop the training if the validation loss does not decrease
+batch_size: 32
+num_workers: 8
+optimizer: 'AdamW' # 'AdamW', 'Lion' (https://github.com/lucidrains/lion-pytorch)
+lr: 0.001    # adamW: 0.001, Lion: 0.0004 (3-10x smaller than that for AdamW)
+weight_decay: 0.004 # adamW: 0.004, Lion: 0.01  (Lion is 3-10x larger than that for AdamW)
+criterion: 'mse' # 'cross_entropy', 'mse', label_smoothing
+resume_training: False # OR put the weirf_crate_smalghts name for resume training: 'name_of_the_weights.pth'
+metric: 'mae' # 'accuracy', 'f1_score', 'precision', 'recall', 'mpjpe_2d', 'mpjpe_3d', mae
+
+model_name: 'units_standard'
+model_input_shape: 'BLC'  # BCHW, BLC, BTCHW, B2CNFT # B: batch size, C: channel, H: height, W: width, T: time length, N: number of (WiFi CSI) links, F: frequency bins
+num_classes: 1 # the number of classes in the dataset
+in_channels: 228 # the number of input channels == 'C' in the model_input_shape
+
+dataset_name: 'RPI'
+csi_dir: 'Open_Datasets/RPI-AX200/Processed_data/csi'
+resp_rate_path: 'Open_Datasets/RPI-AX200/Processed_data/respiration_rate.pkl'
+seg_time_length: 10  # 10 seconds per segment
+seg_time_step: 2     # 2 seconds step between segments
+csi_sampling_rate: 198  # Hz
+resp_avg_window: 2  # Use last 2 seconds for respiration rate averaging
+format: 'polar' # 'polar', 'cartesian', 'complex', 'dfs'
+
+data_split: [] # get the train, validattion, and test sets from the all_dataset ; 
+                           # If data_split is [], we get the train and validation sets from the train_dataset with ratio 0.8, 0.2, respectively. the test set is from the test_dataset
+time_length: 1980 # the length of the time series data.
+# all_dataset:
+#   selected_chunk_index: [1,2,3,4,5,6,7,8,9,10,11]  
+
+train_dataset:
+  selected_chunk_index: [1,2,3,4,5,6,7,8]  
+
+test_dataset:
+  selected_chunk_index: [9,10]
