@@ -1,9 +1,9 @@
-# RF-CRATE: Interpretable Deep Learning for RF Sensing
+# White-Box Deep Wireless Sensing
 
 ## Overview
 ![RF-CRATE Architecture](figures/RF_CRATE_overview3.png)
 
-RF-CRATE is the first mathematically interpretable deep network architecture for radio-frequency (RF) sensing, grounded in the principles of complex sparse rate reduction. Unlike traditional black-box models in Deep Wireless Sensing (DWS), RF-CRATE offers full mathematical interpretability while achieving comparable performance.
+RF-CRATE is the first white-box model for radio-frequency (RF) sensing, grounded in the principle of complex sparse rate reduction. Unlike traditional black-box models in Deep Wireless Sensing (DWS), the architecture of RF-CRATE is derived directly from an underlying optimization algorithm while still achieving comparable performance.
 
 Key features:
 - **Complex-Valued White-Box Transformer**: Extends real-valued white-box transformers to the complex domain through non-trivial theoretical derivations
