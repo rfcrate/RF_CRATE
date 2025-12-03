@@ -111,6 +111,7 @@ def train(model,train_loader,validation_loader,data_sahpe_coverter,criterion,reg
     else:
         recon_criterion = None
     for epoch in range(config['num_epochs']):
+        model.train()  # Set the model to training mode
         loss_epoch = 0
         recon_loss_epoch = 0  # recording the reconstruction loss of rf_crate_recon
         metric_epoch = 0
