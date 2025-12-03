@@ -1,7 +1,7 @@
 # White-Box Deep Wireless Sensing
 
-## Overview
-![RF-CRATE Architecture](figures/RF_CRATE_overview3.png)
+## Black-box versus white-box paradigms in deep wireless sensing.
+![Black box v.s. white box](figures/black_box_vs_white_box.png)
 
 RF-CRATE is the first white-box model for radio-frequency (RF) sensing, grounded in the principle of complex sparse rate reduction. Unlike traditional black-box models in Deep Wireless Sensing (DWS), the architecture of RF-CRATE is derived directly from an underlying optimization algorithm while still achieving comparable performance.
 
@@ -11,6 +11,9 @@ Key features:
 - **Subspace Regularization (SSR)**: A novel regularization strategy that encourages feature diversity, improving performance by an average of 19.98% across multiple sensing tasks
 - **Demonstrated Effectiveness**: Achieves an average classification gain of 5.08% and reduces regression error by 10.34% across diverse sensing tasks
 
+
+## Overview
+![RF-CRATE Architecture](figures/RF_CRATE_overview3.png)
 
 ## Installation
 
