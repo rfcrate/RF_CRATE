@@ -1,34 +1,21 @@
-from .resnet import resnet18, resnet34, resnet50, resnet101, resnet152
-from .densenet import densenet121, densenet169, densenet201, densenet161
 from .swin_transformer import swin_t, swin_s, swin_b, swin_v2_s, swin_v2_b, swin_v2_t
-from .vision_transformer import vit_b_16, vit_b_32, vit_l_16, vit_l_32, vit_h_14
 from .crate import crate_small, crate_base, crate_large, crate_tiny
-
-from .units import units_standard
 from .stfnet import stfnet_standard
 from .rfnet import rf_net
 from .slnet import slnet_standard
 from .widar3 import widar3_standard
-from .laxcat import laxcat_standard
 
 from .rf_crate import rf_crate_tiny, rf_crate_small, rf_crate_base, rf_crate_large, rf_crate_mini, rf_crate_wide_tiny, RF_CRATE
 from .rf_crate_recon import rf_crate_recon_tiny, rf_crate_recon_small, rf_crate_recon_base, rf_crate_recon_large, RF_CRATE_Recon
 
 
 registered_models= {
-
     'swin_t': swin_t,
     'swin_s': swin_s,
     'swin_b': swin_b,
     'swin_v2_s': swin_v2_s, 
     'swin_v2_b': swin_v2_b,
     'swin_v2_t': swin_v2_t,
-
-    'vit_b_16': vit_b_16,
-    'vit_b_32': vit_b_32,
-    'vit_l_16': vit_l_16,
-    'vit_l_32': vit_l_32,
-    'vit_h_14': vit_h_14,
 
     'crate_small': crate_small,
     'crate_base': crate_base,
