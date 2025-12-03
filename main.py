@@ -50,7 +50,7 @@ if __name__ == "__main__":
     else:
         print("Training and Testing!")
         
-    # loading the configuration file ########################################
+    # loading the configuration file #######################################
     config_file_name = args.config_file + '.yaml'
     all_yaml_files = []
     all_yaml_file_paths = []
