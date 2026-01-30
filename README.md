@@ -1,9 +1,9 @@
-# White-Box Deep Wireless Sensing
+# A White-Box Framework for Deep Wireless Human Sensing
 
-## Black-box versus white-box paradigms in deep wireless sensing.
-![Black box v.s. white box](figures/black_box_vs_white_box.png)
+## Black-box versus white-box paradigms in deep wireless human sensing.
+![Black box v.s. white box](figures/DWHS.png)
 
-RF-CRATE is the first white-box model for radio-frequency (RF) sensing, grounded in the principle of complex sparse rate reduction. Unlike traditional black-box models in Deep Wireless Sensing (DWS), the architecture of RF-CRATE is derived directly from an underlying optimization program while still achieving comparable performance.
+RF-CRATE is the first white-box model for radio-frequency (RF) sensing, grounded in the principle of complex sparse rate reduction. Unlike traditional black-box models in Deep Wireless Human Sensing (DWHS), the architecture of RF-CRATE is derived directly from an underlying optimization program while still achieving comparable performance.
 
 Key features:
 - **Complex-Valued White-Box Transformer**: Extends real-valued white-box transformers to the complex domain through non-trivial theoretical derivations
