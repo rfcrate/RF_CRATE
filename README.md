@@ -1,6 +1,7 @@
 # ~~A White-Box Framework for Deep Wireless Human Sensing~~ RF-CRATE: Towards White-Box Deep Wireless Sensing
 
-<div style="color: red; font-weight: bold;">🚨 IMPORTANT: This repository has moved. Please find all finalized materials (including metas.csv) at: https://github.com/aiot-lab/RF-CRATE</div>
+> [!WARNING]
+> **This repository is outdated.** Please find the complete and finalized materials for this paper in the new repository: [aiot-lab/RF-CRATE](https://github.com/aiot-lab/RF-CRATE) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!.
 
 ## Black-box versus white-box paradigms in deep wireless human sensing.
 ![Black box v.s. white box](figures/DWHS.png)
